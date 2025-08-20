@@ -8,10 +8,11 @@ import RecrutingSection from './home-components/recrute'
 import TeacherSection from './home-components/teacher'
 import StudentPage from './home-components/student'
 import PartnersSlider from './home-components/partner'
+import ContactSection from './home-components/contact'
 
 const HomePage = () => {
   return (
-    <div className='max-w-[1313px]   mx-auto pt-30 '>
+    <div className='max-w-[1313px]   mx-auto pt-5 '>
       <HeroSection />
       <Testimionals />
       <SectionTitle title='Courses' />
@@ -26,6 +27,7 @@ const HomePage = () => {
       <StudentPage/>
       <SectionTitle title='Colobrating Organizations' />
       <PartnersSlider />
+      <ContactSection />
     </div>
   )
 }

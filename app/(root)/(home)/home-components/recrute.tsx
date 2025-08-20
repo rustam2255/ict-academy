@@ -10,7 +10,7 @@ const RecrutingSection = () => {
 
       {/* Content */}
       <div className="relative flex flex-col gap-5 mt-10 items-center justify-center">
-        <h3 className="mt-8 text-white text-[24px] font-semibold">Recruting</h3>
+        <h2 className="mt-8 text-white text-[24px] font-semibold">Recruting</h2>
         <p className="text-[20px] text-white">Finding a job or hiring the right people is now faster and easier — with us.</p>
 
         <div className="flex gap-30 justify-center items-center">

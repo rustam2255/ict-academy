@@ -8,7 +8,7 @@ const Layout = ({ children }: ChildProps) => {
 
     <main>
       <Navbar />
-      <div className="container pt-3">{children}</div>
+      <div className="container pt-[13.5vh]">{children}</div>
       <Footer />
     </main>
 
