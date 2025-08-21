@@ -12,7 +12,7 @@ import ContactSection from './home-components/contact'
 
 const HomePage = () => {
   return (
-    <div className='max-w-[1313px]   mx-auto pt-5 '>
+    <div className='max-w-[90%]   mx-auto '>
       <HeroSection />
       <Testimionals />
       <SectionTitle title='Courses' />
