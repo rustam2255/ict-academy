@@ -6,8 +6,9 @@ import { Courses } from '@/interfaces'
 import { useGetCoursesQuery } from '@/service/api'
 import Loading from '../_components/loading'
 import Error from '../_components/error'
-import { motion } from 'framer-motion'
+import { motion, Transition } from 'framer-motion'
 import { getCurrentLang } from '@/utils/getCurrentLang'
+import { useTranslation } from 'react-i18next'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -19,6 +20,8 @@ const containerVariants = {
   },
 }
 
+const cubicBezier: Transition['ease'] = [0.25, 0.1, 0.25, 1];
+
 const itemVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -26,15 +29,17 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.1, 0.25, 1], // easeOut
+      ease: cubicBezier, // endi TS xato bermaydi
     },
   },
-}
+};
+
 
 
 
 const CorsePage = () => {
-  const lang = getCurrentLang();
+    const { i18n } = useTranslation()
+    const lang = i18n.language;
   const { data, error, isLoading } = useGetCoursesQuery({
     limit: 6,
     offset: 0,
