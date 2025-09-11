@@ -1,6 +1,10 @@
+'use client'
 import { ChildProps } from "@/types"
-import Navbar from "./_components/navbar"
+
 import Footer from "./_components/footer"
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("./_components/navbar"), { ssr: false });
 
 
 const Layout = ({ children }: ChildProps) => {
@@ -8,7 +12,7 @@ const Layout = ({ children }: ChildProps) => {
 
     <main>
       <Navbar />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-[5vh]">{children}</div>
+      <div className="overflow-x-hidden">{children}</div>
       <Footer />
     </main>
 

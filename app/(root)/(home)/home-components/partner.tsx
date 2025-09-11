@@ -58,7 +58,7 @@ const PartnersSlider = () => {
               alt={`logo-${i}`}
               width={150}
               height={150}
-              className="w-full max-w-[100px] sm:max-w-[120px] md:max-w-[150px] lg:max-w-[180px] h-auto object-contain"
+              className="w-full   h-auto object-contain"
             />
           </SwiperSlide>
         ))}

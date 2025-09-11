@@ -1,93 +1,192 @@
-import Image from 'next/image'
-import React from 'react'
+"use client"
+
+import { Projects } from "@/interfaces"
+import { useGetProjectsQuery } from "@/service/api"
+import Image from "next/image"
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { getCurrentLang } from "@/utils/getCurrentLang"
+import { useTranslation } from "react-i18next"
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" as const },
+  },
+}
 
 const ProjectsSection = () => {
+    const { i18n } = useTranslation()
+    const lang = i18n.language;
+  const { data, isLoading, isError } = useGetProjectsQuery({ limit: 10, offset: 0, lang })
+  const projects: Projects[] = data?.results || []
+
+  if (isLoading) {
+    return <p className="text-center text-gray-500 mt-10">Loading...</p>
+  }
+
+  if (isError) {
+    return <p className="text-center text-red-500 mt-10">Failed to load projects</p>
+  }
+
   return (
     <div className="w-full px-4 sm:px-6 lg:px-0">
-      {/* Mobile Layout - Single Column Stack */}
+      {/* 📱 Mobile - faqat 4 dona */}
       <div className="block sm:hidden space-y-4 mt-5">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="w-full">
-            <Image 
-              src={'/images/project.png'} 
-              alt={`Project ${index + 1}`} 
-              width={350} 
-              height={200} 
-              className='w-full h-48 object-cover rounded-[12px]' 
-            />
-          </div>
+        {projects.slice(0, 4).map((project) => (
+          <motion.div
+            key={project.id}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <Link href={project.url} className="contents" target="_blank">
+              <Image
+                src={project.photo}
+                alt={project.name}
+                width={350}
+                height={200}
+                className="w-full h-48 object-cover rounded-[12px] cursor-pointer"
+              />
+            </Link>
+          </motion.div>
         ))}
       </div>
 
-      {/* Tablet Layout - 2 Column Grid */}
-      <div className="hidden sm:block lg:hidden">
-        {/* First Row - 2 equal columns */}
-        <div className="grid grid-cols-2 gap-4 mb-4 mt-5">
-          <Image 
-            src={'/images/project.png'} 
-            alt='Project 1' 
-            width={350} 
-            height={250} 
-            className='w-full h-60 object-cover rounded-[12px]' 
-          />
-          <Image 
-            src={'/images/project.png'} 
-            alt='Project 2' 
-            width={350} 
-            height={250} 
-            className='w-full h-60 object-cover rounded-[12px]' 
-          />
-        </div>
-        
-        {/* Second Row - 3 columns in 2 column grid */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <Image 
-            src={'/images/project.png'} 
-            alt='Project 3' 
-            width={350} 
-            height={200} 
-            className='w-full h-48 object-cover rounded-[12px]' 
-          />
-          <div className="grid grid-rows-2 gap-4">
-            <Image 
-              src={'/images/project.png'} 
-              alt='Project 4' 
-              width={350} 
-              height={120} 
-              className='w-full h-28 object-cover rounded-[12px]' 
-            />
-            <Image 
-              src={'/images/project.png'} 
-              alt='Project 5' 
-              width={350} 
-              height={120} 
-              className='w-full h-28 object-cover rounded-[12px]' 
-            />
-          </div>
+      {/* 💻 Tablet - 2 ustun grid */}
+      <div className="hidden sm:block lg:hidden mt-5">
+        <div className="grid grid-cols-2 gap-4">
+          {projects.slice(0, 4).map((project) => (
+            <motion.div
+              key={project.id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <Link href={project.url} className="contents" target="_blank">
+                <Image
+                  src={project.photo}
+                  alt={project.name}
+                  width={350}
+                  height={250}
+                  className="w-full h-60 object-cover rounded-[12px] cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      {/* Desktop Layout - Asl kod ko'rinishi */}
+      {/* 🖥️ Desktop Layout */}
       <div className="hidden lg:block">
         <div className="grid grid-cols-12 grid-rows-2 gap-x-12 gap-y-6 mt-5">
-          <Image src={'/images/project.png'} alt='Project' width={690} height={425} className='col-span-6 rounded-[12px] row-span-2 object-cover' />
-          <Image src={'/images/project.png'} alt='Project' width={292} height={203} className='col-span-3 rounded-[12px] row-span-1 object-cover' />
-          <Image src={'/images/project.png'} alt='Project' width={292} height={203} className='col-span-3 rounded-[12px] row-span-1 object-cover' />
-          <Image src={'/images/project.png'} alt='Project' width={292} height={203} className='col-span-3 rounded-[12px] row-span-1 object-cover' />
-          <Image src={'/images/project.png'} alt='Project' width={292} height={203} className='col-span-3 rounded-[12px] row-span-1 object-cover' />
-        </div>
-        <div className='grid grid-cols-12 gap-6 mt-5'>
-          <Image src={'/images/project.png'} alt='Project' width={292} height={203} className='col-span-3 w-full h-full object-cover rounded-[12px] row-span-1' />
-          <Image src={'/images/project.png'} alt='Project' width={1005} height={425} className='col-span-9 w-full h-[425px] object-cover rounded-[12px] row-span-2' />
-          <Image src={'/images/project.png'} alt='Project' width={292} height={203} className='col-span-3 w-full h-full object-cover rounded-[12px] row-span-1' />
-        </div>
-      </div>
+          {/* Katta project */}
+          {projects[0] && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="col-span-6 row-span-2"
+            >
+              <Link href={projects[0].url} className="contents" target="_blank">
+                <Image
+                  src={projects[0].photo}
+                  alt={projects[0].name}
+                  width={690}
+                  height={425}
+                  className="w-full h-full rounded-[12px] object-cover cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+          )}
 
-      {/* All Projects Button */}
-      <div className='flex items-center justify-center mt-7'>
-        <button className='w-[240px] h-[50px] text-center cursor-pointer items-center rounded-[45px] border-2 border-green-700 bg-gradient-to-l from-[#3EFEA1] to-[#259860] hover:from-[#2FE091] hover:to-[#1F8050] transition-all duration-300 hover:scale-105'>
-          All Projects
-        </button>
+          {/* Qolganlari */}
+          {projects.slice(1, 5).map((project) => (
+            <motion.div
+              key={project.id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="col-span-3 row-span-1"
+            >
+              <Link href={project.url} className="contents" target="_blank">
+                <Image
+                  src={project.photo}
+                  alt={project.name}
+                  width={292}
+                  height={203}
+                  className="w-full h-full object-cover rounded-[12px] cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-12 gap-6 mt-5">
+          {projects[5] && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="col-span-3 row-span-1"
+            >
+              <Link href={projects[5].url} className="contents" target="_blank">
+                <Image
+                  src={projects[5].photo}
+                  alt={projects[5].name}
+                  width={292}
+                  height={203}
+                  className="w-full h-full object-cover rounded-[12px] cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+          )}
+          {projects[6] && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="col-span-9 row-span-2"
+            >
+              <Link href={projects[6].url} className="contents" target="_blank">
+                <Image
+                  src={projects[6].photo}
+                  alt={projects[6].name}
+                  width={1005}
+                  height={425}
+                  className="w-full h-[425px] object-cover rounded-[12px] cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+          )}
+          {projects[7] && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="col-span-3 row-span-1"
+            >
+              <Link href={projects[7].url} className="contents" target="_blank">
+                <Image
+                  src={projects[7].photo}
+                  alt={projects[7].name}
+                  width={292}
+                  height={203}
+                  className="w-full h-full object-cover rounded-[12px] cursor-pointer"
+                />
+              </Link>
+            </motion.div>
+          )}
+        </div>
       </div>
     </div>
   )

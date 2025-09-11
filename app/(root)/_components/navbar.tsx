@@ -1,6 +1,7 @@
 'use client'
-
 import { navLinks } from '@/const'
+import LanguageSwitcher from '@/lib/languageSelector/languageChange'
+import { useTranslation } from 'react-i18next'
 import { Languages, Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,12 +15,12 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+  const {t} = useTranslation()
 
   return (
     <>
       <div className='h-[10vh] sm:h-[12vh] lg:h-[13.5vh] fixed inset-0 z-40 bg-gradient-to-r from-[#3EBD80] to-[#1D573B]'>
         <div className='h-full w-full flex items-center justify-between px-4 sm:px-6 lg:px-0 '>
-          {/* Logo */}
           <Link href={'/'}>
             <div className='w-[140px] sm:w-[170px] lg:w-[200px] h-[50px] sm:h-[65px] lg:h-[80px] rounded-tr-[15px] sm:rounded-tr-[20px] lg:rounded-tr-[23px] rounded-br-[25px] sm:rounded-br-[35px] lg:rounded-br-[45px] pl-[20px] sm:pl-[35px] lg:pl-[50px] bg-white flex items-center'>
               <Image 
@@ -31,8 +32,6 @@ const Navbar = () => {
               />
             </div>
           </Link>
-
-          {/* Desktop Links */}
           <div className='xl:gap-9 gap-3 hidden lg:flex text-[16px] xl:text-[20px] font-medium'>
             {navLinks.map(nav => {
               const isActive = pathName === nav.route
@@ -46,22 +45,16 @@ const Navbar = () => {
                       : "text-gray-100 hover:text-white"
                   }`}
                 >
-                  {nav.name}
+                  {t(`navbar.${nav.key}`)}
                 </Link>
               )
             })}
           </div>
-
-          {/* Right side - Desktop */}
-          <div className='gap-3 sm:gap-5 lg:gap-7 md:mr-10   flex items-center'>
-            <Languages className="text-white w-5 h-5 sm:w-6 sm:h-6 cursor-pointer hover:text-gray-200 transition" />
-            
-            {/* Signup button */}
-            <div className='w-[100px] sm:w-[130px] lg:w-[157px] h-[35px] sm:h-[40px] lg:h-[46px] flex items-center justify-center bg-[#0B2234] rounded-[15px] sm:rounded-[20px] lg:rounded-[23px] border-2 border-green-400 cursor-pointer hover:scale-105 transition '>
+          <div className=' md:mr-20   flex items-center'>
+            <LanguageSwitcher />
+            {/* <button className='w-[100px] sm:w-[130px] lg:w-[157px] h-[35px] sm:h-[40px] lg:h-[46px] flex items-center justify-center bg-[#0B2234] rounded-[15px] sm:rounded-[20px] lg:rounded-[23px] border-2 border-green-400 cursor-pointer hover:scale-105 transition '>
               <p className='text-[14px] sm:text-[16px] lg:text-[20px] text-white font-medium'>Signup</p>
-            </div>
-
-            {/* Mobile Menu Button */}
+            </button> */}
             <button
               onClick={toggleMenu}
               className='lg:hidden text-white p-2'
@@ -71,8 +64,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div className='fixed inset-0 z-30 bg-black bg-opacity-50 lg:hidden' onClick={toggleMenu}>
           <div 
@@ -80,7 +71,6 @@ const Navbar = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className='flex flex-col p-6 space-y-6'>
-              {/* Mobile Links */}
               <div className='flex flex-col space-y-4'>
                 {navLinks.map(nav => {
                   const isActive = pathName === nav.route
@@ -91,33 +81,20 @@ const Navbar = () => {
                       onClick={toggleMenu}
                       className={`text-[18px] font-medium py-2 px-4 rounded-lg transition duration-300 ${
                         isActive
-                          ? "text-white bg-white bg-opacity-20"
+                          ? "text-black bg-white bg-opacity-20"
                           : "text-gray-100 hover:text-white hover:bg-white hover:bg-opacity-10"
                       }`}
                     >
-                      {nav.name}
+                      {t(`navbar.${nav.key}`)}
                     </Link>
                   )
                 })}
               </div>
-
-              {/* Mobile Language & Signup */}
-              <div className='border-t border-white border-opacity-20 pt-4 space-y-4'>
-                <div className='flex items-center gap-3 text-white cursor-pointer hover:text-gray-200 transition'>
-                  <Languages size={20} />
-                  <span className='text-[16px]'>Tilni ozgartirish</span>
-                </div>
-                
-                <div className='w-full h-[46px] flex items-center justify-center bg-[#0B2234] rounded-[23px] border-2 border-green-400 cursor-pointer hover:scale-105 transition'>
-                  <p className='text-[18px] text-white font-medium'>Signup</p>
-                </div>
-              </div>
+ 
             </div>
           </div>
         </div>
       )}
-
-      {/* Spacer for fixed navbar */}
       <div className='h-[10vh] sm:h-[12vh] lg:h-[13.5vh]'></div>
     </>
   )

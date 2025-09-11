@@ -1,0 +1,10 @@
+{
+   "navbar": {
+      "home": "Bosh sahifa",
+      "aboutUs": "Biz haqimizda",
+      "news": "Yangiliklar",
+      "courses": "Kurslar",
+      "project": "Loyihalar",
+      "contact": "Aloqa"
+    }
+}
