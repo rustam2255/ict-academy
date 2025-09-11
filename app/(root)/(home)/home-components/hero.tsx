@@ -3,11 +3,15 @@ import { useGetCoursesQuery } from '@/service/api'
 import { Play } from 'lucide-react'
 import Image from 'next/image'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const HeroSection = () => {
+    const { i18n } = useTranslation()
+    const lang = i18n.language;
   const {data, isLoading, error} = useGetCoursesQuery({
     limit: 6,
     offset: 0,
+    lang
   })
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
