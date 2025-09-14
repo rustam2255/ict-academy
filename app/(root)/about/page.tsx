@@ -15,9 +15,12 @@ export default function AboutUs() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const { scrollY } = useScroll();
+  const [particles, setParticles] = useState<{ x: number, y: number }[]>([]);
   const { t } = useTranslation()
   const backgroundY = useTransform(scrollY, [0, 500], [0, -100]);
   const floatingY = useTransform(scrollY, [0, 1000], [0, -50]);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -25,6 +28,13 @@ export default function AboutUs() {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+  useEffect(() => {
+    const arr = [...Array(10)].map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight
+    }));
+    setParticles(arr);
   }, []);
 
   // Animation variants
@@ -97,17 +107,17 @@ export default function AboutUs() {
           className="fixed inset-0 pointer-events-none z-0"
           style={{ y: backgroundY }}
         >
-          {[...Array(10)].map((_, i) => (
+          {isClient && [...Array(10)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-2 h-2 bg-emerald-400 rounded-full opacity-20"
               initial={{
-                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight
               }}
               animate={{
-                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
               }}
               transition={{
                 duration: Math.random() * 10 + 10,
@@ -239,7 +249,7 @@ export default function AboutUs() {
               </motion.div>
 
               {/* Orbiting Tech Elements */}
-              {['🔧', '⚡', '📊', '🌐'].map((icon, i) => (
+              {isClient && ['🔧', '⚡', '📊', '🌐'].map((icon, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-16 h-16 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 border-2 border-white/30 shadow-lg flex items-center justify-center text-white font-bold"
@@ -261,7 +271,7 @@ export default function AboutUs() {
               ))}
 
               {/* Sparkling Code Bubbles */}
-              {['code', 'data', 'api', 'cloud'].map((label, i) => (
+              {isClient && ['code', 'data', 'api', 'cloud'].map((label, i) => (
                 <motion.div
                   key={label}
                   className="absolute w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-emerald-300 flex items-center justify-center text-white text-xs font-mono"
@@ -294,7 +304,7 @@ export default function AboutUs() {
                 transition={{ duration: 5, repeat: Infinity }}
               >
                 <svg className="w-full h-full" viewBox="0 0 400 400">
-                  {[0, 1, 2, 3].map((i) => (
+                  {isClient && [0, 1, 2, 3].map((i) => (
                     <motion.line
                       key={i}
                       x1="200"
@@ -487,7 +497,7 @@ export default function AboutUs() {
               />
 
               {/* Team Member Avatars */}
-              {[...Array(6)].map((_, i) => (
+              {isClient && [...Array(6)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-12 h-12 rounded-full bg-gradient-to-br from-emerald-300 to-cyan-400 border-2 border-white shadow-lg flex items-center justify-center text-white font-bold"
@@ -528,7 +538,7 @@ export default function AboutUs() {
               </motion.div>
 
               {/* Skill Bubbles */}
-              {['JS', 'PY', 'UI', 'DB'].map((skill, i) => (
+              {isClient && ['JS', 'PY', 'UI', 'DB'].map((skill, i) => (
                 <motion.div
                   key={skill}
                   className="absolute w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white text-xs font-bold"
@@ -560,7 +570,7 @@ export default function AboutUs() {
                 transition={{ duration: 4, repeat: Infinity }}
               >
                 <svg className="w-full h-full">
-                  {[...Array(3)].map((_, i) => (
+                  {isClient && [...Array(3)].map((_, i) => (
                     <motion.line
                       key={i}
                       x1="50%"
