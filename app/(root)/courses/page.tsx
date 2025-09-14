@@ -39,12 +39,12 @@ const itemVariants = {
 
 
 const CorsePage = () => {
-  const { i18n, t } = useTranslation()
-  const lang = i18n.language;
+  const { t } = useTranslation()
+  
   const { data, error, isLoading } = useGetCoursesQuery({
     limit: 6,
     offset: 0,
-    lang
+
   })
   if (isLoading) return <Loading />
   if (error) return <Error />

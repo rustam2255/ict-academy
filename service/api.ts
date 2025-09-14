@@ -9,19 +9,19 @@ export const API = createApi({
   }),
   endpoints: (builder) => ({
     getCourses: builder.query<CourseResponse, GetCoursesParams>({
-      query: ({ limit = 10, offset = 0, lang }) => {
+      query: ({ limit = 10, offset = 0 }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
-        return `/${lang}/courses/api/v1/?${params.toString()}`
+        return `/courses/api/v1/?${params.toString()}`
       },
     }),
     getCoursesBanner: builder.query<CourseBannerResponse, GetCoursesParams>({
-      query: ({ limit = 10, offset = 0, lang }) => {
+      query: ({ limit = 10, offset = 0 }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
-        return `/${lang}/courses/api/v1/banners/?${params.toString()}`
+        return `/courses/api/v1/banners/?${params.toString()}`
       },
     }),
     getCourseDetail: builder.query<CourseDetail, GetDetailResponse>({
@@ -68,13 +68,13 @@ export const API = createApi({
     getStudentDetail: builder.query<Students, GetDetailResponse>({
       query: ({ id, lang }) => `/${lang}/accounts/api/v1/our-student/${id}`
     }),
-    postContact: builder.mutation<Contact, Partial<Contact>>({
-      query: (body) => ({
-        url: "/base/api/v1/contact/",
-        method: "POST",
-        body,
+      postContact: builder.mutation<Contact, Partial<Contact>>({
+        query: (body) => ({
+          url: "/base/api/v1/contact/",
+          method: "POST",
+          body,
+        }),
       }),
-    }),
 
   }),
 })
