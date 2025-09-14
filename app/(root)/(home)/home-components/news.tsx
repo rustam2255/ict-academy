@@ -5,7 +5,6 @@ import React from "react";
 import { useGetNewsQuery } from "@/service/api";
 import { News } from "@/interfaces";
 import { motion } from "framer-motion";
-import { getCurrentLang } from "@/utils/getCurrentLang";
 import { useTranslation } from "react-i18next";
 
 const NewsSection = () => {

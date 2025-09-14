@@ -1,6 +1,6 @@
 'use client'
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Contact, CourseDetail, CourseResponse, GetCoursesParams, GetDetailResponse, GetNewsParams, GetProjectsParams, GetTeacherParams, NewsDetail, NewsResponse, ProjectDetail, ProjectsResponse, TeacherResponse } from '@/interfaces/index'
+import { Contact, CourseBannerResponse, CourseDetail, CourseResponse, GetCoursesParams, GetDetailResponse, GetNewsParams, GetProjectsParams, GetStudentParams, GetTeacherParams, NewsDetail, NewsResponse, ProjectDetail, ProjectsResponse, StudentResponse, Students, TeacherResponse } from '@/interfaces/index'
 
 export const API = createApi({
   reducerPath: 'API',
@@ -9,11 +9,19 @@ export const API = createApi({
   }),
   endpoints: (builder) => ({
     getCourses: builder.query<CourseResponse, GetCoursesParams>({
-      query: ({ limit = 10, offset = 0, lang}) => {
+      query: ({ limit = 10, offset = 0, lang }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
         return `/${lang}/courses/api/v1/?${params.toString()}`
+      },
+    }),
+    getCoursesBanner: builder.query<CourseBannerResponse, GetCoursesParams>({
+      query: ({ limit = 10, offset = 0, lang }) => {
+        const params = new URLSearchParams()
+        params.append("limit", limit.toString())
+        params.append("offset", offset.toString())
+        return `/${lang}/courses/api/v1/banners/?${params.toString()}`
       },
     }),
     getCourseDetail: builder.query<CourseDetail, GetDetailResponse>({
@@ -31,7 +39,7 @@ export const API = createApi({
       query: ({ id, lang }) => `/${lang}/courses/api/v1/project/${id}`
     }),
     getNews: builder.query<NewsResponse, GetNewsParams>({
-      query: ({ limit = 10, offset = 0 , lang }) => {
+      query: ({ limit = 10, offset = 0, lang }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
@@ -42,12 +50,23 @@ export const API = createApi({
       query: ({ id, lang }) => `/${lang}/courses/api/v1/news/${id}`
     }),
     getTeacher: builder.query<TeacherResponse, GetTeacherParams>({
-      query: ({ limit = 10, offset = 0 , lang}) => {
+      query: ({ limit = 10, offset = 0, lang }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
         return `/${lang}/accounts/api/v1/our-teachers/`
       }
+    }),
+    getStudent: builder.query<StudentResponse, GetStudentParams>({
+      query: ({ limit = 10, offset = 0, lang }) => {
+        const params = new URLSearchParams()
+        params.append("limit", limit.toString())
+        params.append("offset", offset.toString())
+        return `/${lang}/accounts/api/v1/our-students/`
+      }
+    }),
+    getStudentDetail: builder.query<Students, GetDetailResponse>({
+      query: ({ id, lang }) => `/${lang}/accounts/api/v1/our-student/${id}`
     }),
     postContact: builder.mutation<Contact, Partial<Contact>>({
       query: (body) => ({
@@ -62,6 +81,7 @@ export const API = createApi({
 
 
 export const {
+  useGetCoursesBannerQuery,
   useGetCoursesQuery,
   useGetCourseDetailQuery,
   useGetProjectsQuery,
@@ -69,5 +89,7 @@ export const {
   useGetNewsQuery,
   useGetNewsDetailQuery,
   useGetTeacherQuery,
+  useGetStudentQuery,
+  useGetStudentDetailQuery,
   usePostContactMutation
 } = API

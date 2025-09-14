@@ -1,8 +1,11 @@
+'use client'
 import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MapPin } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 const Footer = () => {
+  const {t} = useTranslation()
   return (
     <footer className="bg-gradient-to-b from-[#0B2234] to-[#1D573B] text-white py-12 px-6">
       <div className="max-w-7xl mx-auto">
@@ -20,9 +23,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-sm leading-relaxed text-gray-200 max-w-md">
-              ICT Academy will help you choose your future profession, develop your 
-              personal career and develop the software products you need for your 
-              professional business.
+              {t("footer.descr")}
             </p>
           </div>
 
@@ -31,7 +32,7 @@ const Footer = () => {
             
             {/* Get in Touch */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white mb-4">Get In Touch</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">{t("footer.address")}</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <MapPin size={18} className="text-green-400 flex-shrink-0" />
@@ -54,7 +55,7 @@ const Footer = () => {
 
             {/* Office Time */}
             <div className="space-y-4 ">
-              <h3 className="text-lg font-semibold text-white mb-4">Office Time</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">{t("footer.time")}</h3>
               <div className="space-y-2">
                 <p className="text-sm text-gray-200">Mon-Sat: 09:00AM – 09:00PM</p>
                 <p className="text-sm text-gray-200">Sunday: 10:00AM – 4:00PM</p>
@@ -63,7 +64,7 @@ const Footer = () => {
 
             {/* Social Network */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white mb-4">Social network</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">{t("footer.net")}</h3>
               <div className="flex gap-3">
                 <Link href="#" className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center hover:bg-blue-600 transition-colors">
                   <Twitter size={16} className="text-white" />

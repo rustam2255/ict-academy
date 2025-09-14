@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetTeacherQuery } from '@/service/api'
-import { getMediaUrl } from "@/utils/get"
+
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
 import { Play, Pause, Volume2, VolumeX } from "lucide-react"
@@ -27,7 +27,7 @@ const TeacherSection = () => {
 
   useEffect(() => {
     if (teachersData?.results && teachersData.results.length > 0) {
-      setSelectedTeacherId(teachersData.results[1].id)
+      setSelectedTeacherId(teachersData.results[0].id)
     }
   }, [teachersData])
 
@@ -35,7 +35,7 @@ const TeacherSection = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
-
+  const {t} = useTranslation()
   const [emblaRef] = useEmblaCarousel({ align: "start", dragFree: true })
 
   if (isLoading) return <p>Loading...</p>
@@ -65,12 +65,12 @@ const TeacherSection = () => {
       viewport={{ once: true, amount: 0.2 }}
       className="sm:mt-4 w-full mx-auto lg:mt-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10"
     >
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center ">
         <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] font-bold text-white text-center lg:text-left">
-          Our Teachers
+          {t("teacherpage.title")}
         </h2>
-        <p className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-gray-300 text-center lg:text-left max-w-2xl leading-relaxed mt-2 sm:mt-3 lg:mt-4 mb-6 lg:mb-4">
-          Our teachers are real heroes, you can get acquainted with them below
+        <p className="text-[14px] sm:text-[16px]  md:text-[18px] lg:text-[20px] text-gray-300 text-center lg:text-left  leading-relaxed mt-2 sm:mt-3 lg:mt-4 mb-6 lg:mb-4">
+          {t("teacherpage.descr")}
         </p>
       </div>
 
@@ -106,7 +106,7 @@ const TeacherSection = () => {
 
           {/* 💻 Desktop List */}
           <div className="hidden lg:block space-y-3">
-            {teachersData?.results.slice(1).map((teacher) => (
+            {teachersData?.results.map((teacher) => (
               <div
                 key={teacher.id}
                 className="flex relative items-center gap-3 bg-[#1A2F3F] p-3 rounded-lg cursor-pointer transition-all duration-200"
@@ -156,7 +156,7 @@ const TeacherSection = () => {
                       loop
                       muted={isMuted}
                       className="w-[500px] h-[526px] rounded-lg shadow-lg object-cover"
-                      src={getMediaUrl(selectedTeacher.video)}
+                      src={selectedTeacher.video}
                     />
 
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/20">
@@ -195,7 +195,7 @@ const TeacherSection = () => {
                 className="w-full space-y-6"
               >
                 <p className="text-white text-[16px] leading-relaxed">
-                  {selectedTeacher.bio?.bio_uz ||
+                  {getCurrentLang(selectedTeacher.bio, lang) ||
                     "Lorem Ipsum placeholder text..."}
                 </p>
 
@@ -204,28 +204,28 @@ const TeacherSection = () => {
                     <p className="text-white text-2xl font-bold">
                       {selectedTeacher.year || 7}
                     </p>
-                    <p className="text-gray-400 text-xs mt-1">years of experience</p>
+                    <p className="text-gray-400 text-xs mt-1">{t("teacherpage.stage")}</p>
                   </div>
 
                   <div className="bg-[#1A2F3F] p-4 rounded-lg text-center h-[95px]">
                     <p className="text-white text-2xl font-bold">
                       {selectedTeacher.student_count || "500+"}
                     </p>
-                    <p className="text-gray-400 text-xs mt-1">students studied</p>
+                    <p className="text-gray-400 text-xs mt-1">{t("teacherpage.count_student")}</p>
                   </div>
 
                   <div className="bg-[#1A2F3F] p-4 rounded-lg text-center h-[95px]">
                     <p className="text-white text-2xl font-bold">
                       {selectedTeacher.projects || 72}
                     </p>
-                    <p className="text-gray-400 text-xs mt-1">All Projects</p>
+                    <p className="text-gray-400 text-xs mt-1">{t("teacherpage.all_project")}</p>
                   </div>
 
                   <div className="bg-[#1A2F3F] p-4 rounded-lg text-center h-[95px]">
                     <span className="text-black bg-green-400 rounded-full px-4 py-1 inline-block text-sm font-bold">
                       {selectedTeacher.status || "Senior"}
                     </span>
-                    <p className="text-gray-400 text-xs mt-2">Status</p>
+                    <p className="text-gray-400 text-xs mt-2">{t("teacherpage.status")}</p>
                   </div>
                 </div>
               </motion.div>

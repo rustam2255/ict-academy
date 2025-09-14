@@ -5,12 +5,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '217.76.56.73',
-        port: '8008',
+        hostname: 'ictacademy.uz',
         pathname: '/media/**',
       },
     ],
-  },
+  }
+
 }
 
 module.exports = nextConfig

@@ -9,12 +9,12 @@ import Image from "next/image";
 const PartnersSlider = () => {
   const logos = [
     "/images/org1.png",
-    "/images/org1.png",
-    "/images/org1.png",
-    "/images/org1.png",
-    "/images/org1.png",
-    "/images/org1.png",
-    "/images/org1.png",
+    "/images/org2.png",
+    "/images/org3.png",
+    "/images/org4.png",
+    "/images/org5.png",
+    "/images/org6.png",
+    "/images/org3.png",
   ];
 
   return (
@@ -58,7 +58,7 @@ const PartnersSlider = () => {
               alt={`logo-${i}`}
               width={150}
               height={150}
-              className="w-full   h-auto object-contain"
+              className="w-[150px]  h-[150px] object-contain"
             />
           </SwiperSlide>
         ))}

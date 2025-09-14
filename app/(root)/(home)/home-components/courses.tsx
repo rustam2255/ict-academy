@@ -7,7 +7,6 @@ import Link from 'next/link'
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { getCurrentLang } from '@/utils/getCurrentLang'
 import { useTranslation } from 'react-i18next'
 
 interface CourseCardProps {
@@ -16,7 +15,7 @@ interface CourseCardProps {
 
 export const CourseCard = ({ course }: CourseCardProps) => {
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 })
-
+  const { t} = useTranslation()
   return (
     <motion.div
       ref={ref}
@@ -37,7 +36,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
             </p>
           </div>
           <button className="flex items-center justify-center text-[10px] sm:text-[12px] lg:text-[14px] font-semibold bg-green-400 text-black px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 rounded-[6px] sm:rounded-[8px] hover:bg-green-300 transition-colors duration-300 whitespace-nowrap">
-            Continue
+            {t("coursepage.continue")}
           </button>
         </div>
 
@@ -47,7 +46,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
         {/* Content */}
         <div className="flex flex-col flex-1">
           <h3 className="font-semibold text-[14px] sm:text-[16px] lg:text-[18px] text-white mb-2 sm:mb-3">
-            Course Modules
+            {t("coursepage.moduls")}
           </h3>
 
           {/* Modules */}
@@ -70,7 +69,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
 }
 
 const CourseSection = () => {
-    const { i18n } = useTranslation()
+    const { i18n, t } = useTranslation()
     const lang = i18n.language;
   const { data, error, isLoading } = useGetCoursesQuery({
     limit: 6,
@@ -91,10 +90,10 @@ const CourseSection = () => {
       {/* Header Section */}
       <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-10 lg:mb-12">
         <h2 className="font-bold text-[24px] sm:text-[28px] lg:text-[32px] xl:text-[36px] text-white text-center">
-          Explore Our Categories
+          {t("coursepage.title")}
         </h2>
         <p className="font-medium text-[14px] sm:text-[16px] lg:text-[18px] xl:text-[20px] text-center text-[#BFBABA] max-w-4xl leading-relaxed">
-          ICT Academy is a place of learning that has more than 10,000 students to date, fully specializing in numerous areas of programming.
+          {t("coursepage.descr")}
         </p>
       </div>
       {isLoading && <p className="text-white text-center">Loading...</p>}
@@ -110,7 +109,7 @@ const CourseSection = () => {
       {/* Explore Button */}
       <div className="flex items-center justify-center">
         <button className="w-[200px] sm:w-[220px] lg:w-[240px] h-[40px] sm:h-[45px] lg:h-[50px] text-[14px] sm:text-[16px] lg:text-[18px] font-semibold text-black text-center cursor-pointer flex items-center justify-center rounded-[35px] sm:rounded-[40px] lg:rounded-[45px] border-2 border-green-700 bg-gradient-to-l from-[#3EFEA1] to-[#259860] hover:from-[#2FE091] hover:to-[#1F8050] transition-all duration-300 hover:scale-105">
-          Explore Categories
+          {t("coursepage.btn")}
         </button>
       </div>
     </motion.div>

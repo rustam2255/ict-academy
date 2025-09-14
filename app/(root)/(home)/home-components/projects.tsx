@@ -5,7 +5,6 @@ import { useGetProjectsQuery } from "@/service/api"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { getCurrentLang } from "@/utils/getCurrentLang"
 import { useTranslation } from "react-i18next"
 
 const fadeUp = {

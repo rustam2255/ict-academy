@@ -1,8 +1,14 @@
- // yoki qayerda i18next o‘rnatilgan bo‘lsa
+import { Bio } from "@/interfaces";
 
-import i18n from "@/lib/i18n/i18n";
-
-export const getCurrentLang = (): string => {
-  // default 'en'
-  return i18n.language || 'uz';
+export const getCurrentLang = (bio: Bio, lang: string): string | null => {
+  switch (lang) {
+    case "uz":
+      return bio.bio_uz;
+    case "ru":
+      return bio.bio_ru;
+    case "en":
+      return bio.bio_en;
+    default:
+      return bio.bio_en; // fallback
+  }
 };

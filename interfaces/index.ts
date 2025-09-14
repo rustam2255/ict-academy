@@ -44,10 +44,47 @@ export interface CourseDetail {
   banner?: string | null;
   teachers?: CourseTeacher[];
 }
+
+
 export interface GetDetailResponse {
   id: number;
   lang: string
 
+}
+export interface CourseBannerResponse {
+  count: number
+  next: string | null
+  previous: string | null
+  results: CourseBanner[]
+}
+
+export interface CourseBanner {
+  id: number
+  name: string
+  description: string
+  moduls: BannerModul[]
+  video: string
+  banner: string
+  teachers: BannerTeacher[]
+}
+
+export interface BannerModul {
+  id: number
+  name: string
+  themes: string[]
+}
+
+export interface BannerTeacher {
+  id: number
+  first_name: string
+  last_name: string
+  avatar: string
+  bio: string
+  status: string
+  student_count: number
+  year: number
+  projects: number
+  video: string
 }
 
 
@@ -141,6 +178,33 @@ export interface TeacherResponse {
   results: Teacher[];
 }
 export interface GetTeacherParams {
+  limit?: number
+  offset?: number
+  lang: string
+}
+
+//students
+export interface Students {
+  id: number;
+  email: string;
+  first_name: string;       
+  last_name: string;        
+  bio: string | null;
+  avatar: string | null;    
+  video: string | null;     
+  job: string | null;
+  status: string | null;
+  year: number | null;
+  projects: number;
+}
+
+export interface StudentResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Students[];
+}
+export interface GetStudentParams {
   limit?: number
   offset?: number
   lang: string

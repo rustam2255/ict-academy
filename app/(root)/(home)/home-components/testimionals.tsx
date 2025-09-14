@@ -1,13 +1,15 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const Testimonials = () => {
+  const {t} = useTranslation()
   const stats = [
-    { number: "1", label: "Academy" },
-    { number: "8", label: "Field of study" },
-    { number: "1,3K", label: "Students" },
-    { number: "50+", label: "Projects" },
+    { number: "1", label: t("testimonials.label") },
+    { number: "8", label: t("testimonials.navigation") },
+    { number: "1,3K", label: t("testimonials.student_count") },
+    { number: "50+", label: t("testimonials.project_count") },
   ];
 
   return (
