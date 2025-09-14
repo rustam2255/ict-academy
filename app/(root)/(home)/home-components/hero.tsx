@@ -12,12 +12,11 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const HeroSection = () => {
-  const { i18n } = useTranslation()
-  const lang = i18n.language
+  
   const { data, isLoading, error } = useGetCoursesBannerQuery({
     limit: 6,
     offset: 0,
-    lang,
+
   })
   const courses: CourseBanner[] = data?.results || []
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
