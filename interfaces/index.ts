@@ -15,6 +15,7 @@ export interface CourseResponse {
 export interface GetCoursesParams {
   limit?: number
   offset?: number
+  lang: string
 }
 export interface ModulList {
   id: number;

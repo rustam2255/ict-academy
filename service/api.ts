@@ -9,19 +9,19 @@ export const API = createApi({
   }),
   endpoints: (builder) => ({
     getCourses: builder.query<CourseResponse, GetCoursesParams>({
-      query: ({ limit = 10, offset = 0 }) => {
+      query: ({ limit = 10, offset = 0, lang }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
-        return `/courses/api/v1/?${params.toString()}`
+        return `/${lang}/courses/api/v1/?${params.toString()}`
       },
     }),
     getCoursesBanner: builder.query<CourseBannerResponse, GetCoursesParams>({
-      query: ({ limit = 10, offset = 0 }) => {
+      query: ({ limit = 10, offset = 0, lang }) => {
         const params = new URLSearchParams()
         params.append("limit", limit.toString())
         params.append("offset", offset.toString())
-        return `/courses/api/v1/banners/?${params.toString()}`
+        return `/${lang}/courses/api/v1/banners/?${params.toString()}`
       },
     }),
     getCourseDetail: builder.query<CourseDetail, GetDetailResponse>({
