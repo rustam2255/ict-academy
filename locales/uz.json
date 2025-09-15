@@ -45,8 +45,20 @@
       "email": "Emailmanzilingiz",
       "phone": "Telefon raqamingiz",
       "message": "Xabar...",
-      "btn": "Jo'natish"
-      
+      "btn": "Jo'natish",
+      "sending": "Yuborilmoqda...",
+      "success_message": "Xabaringiz muvaffaqiyatli yuborildi!",
+      "error_message": "Xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.",
+      "errors": {
+         "name_required": "Ism kiritilishi shart",
+         "email_required": "Email kiritilishi shart",
+         "email_invalid": "Email manzili noto‘g‘ri",
+         "phone_required": "Telefon kiritilishi shart",
+         "phone_invalid": "Telefon raqami noto‘g‘ri",
+         "message_required": "Xabar kiritilishi shart",
+         "message_min_length": "Xabar kamida 10 ta belgidan iborat bo‘lishi kerak",
+         "message_max_length": "Xabar 500 ta belgidan oshmasligi kerak"
+      }
    },
    "footer": {
       "descr": "ICT akademiyasi kelajakdagi kasbingizni tanlashda, shaxsiy karerangizni rivojlantirishda va professional biznesingiz uchun zarur bo'lgan dasturiy mahsulotlarni ishlab chiqishda yordam beradi.",
@@ -65,7 +77,7 @@
    "project": {
       "title": "Maqsadli loyihalar",
       "descr": "Ishtirok va aniqlik bilan yaratilgan innovatsion yechimlar va ijodiy tatbiqlarni kashf eting",
-      "view": "Loyihani ko'rish",   
+      "view": "Loyihani ko'rish",
       "go": "Saytga o'tish"
    },
    "about": {

@@ -42,7 +42,7 @@ export default function AboutUs() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.3 }
+      transition: { duration: 0.6, staggerChildren: 0.1, delayChildren: 0.3 }
     }
   };
 
@@ -51,7 +51,7 @@ export default function AboutUs() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring" as const, stiffness: 100 }
+      transition: {duration: 0.6,  type: "spring" as const, stiffness: 100 }
     }
   };
 
@@ -171,7 +171,7 @@ export default function AboutUs() {
                   key={index}
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.1, duration: 0.6  }}
                   className="inline-block"
                 >
                   {char === " " ? "\u00A0" : char}
@@ -184,7 +184,7 @@ export default function AboutUs() {
               className="text-lg sm:text-xl leading-relaxed text-gray-200"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
+              transition={{ delay: 1, duration: 0.6 , ease: easeInOut }}
             >
               {t("about.descr")}
             </motion.p>
@@ -209,7 +209,7 @@ export default function AboutUs() {
                   className="absolute inset-0 bg-white opacity-20"
                   initial={{ x: "-100%" }}
                   whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.6 }}
                 />
                 {t("about.btn")}
               </Link>
@@ -393,12 +393,12 @@ export default function AboutUs() {
                 }}
                 onHoverStart={() => setHoveredCard(index)}
                 onHoverEnd={() => setHoveredCard(null)}
-                transition={{ type: "spring", stiffness: 300 }}
+                transition={{ type: "spring", stiffness: 300, duration: 0.6 }}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 opacity-0"
                   animate={{ opacity: hoveredCard === index ? 0.1 : 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.6 }}
                 />
                 <motion.h3
                   className="text-lg font-semibold relative z-10"

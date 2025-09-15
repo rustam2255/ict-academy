@@ -1,14 +1,12 @@
-'use client'
+"use client";
 
-import { useGetTeacherQuery } from '@/service/api'
-
-import Image from "next/image"
-import React, { useEffect, useRef, useState } from "react"
-import { Play, Pause, Volume2, VolumeX } from "lucide-react"
-import { motion } from "framer-motion"
-import useEmblaCarousel from "embla-carousel-react"
-import { getCurrentLang } from '@/utils/getCurrentLang'
-import { useTranslation } from 'react-i18next'
+import { useGetTeacherQuery } from "@/service/api";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { motion } from "framer-motion";
+import { getCurrentLang } from "@/utils/getCurrentLang";
+import { useTranslation } from "react-i18next";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -17,45 +15,125 @@ const fadeUp = {
     y: 0,
     transition: { duration: 0.6, ease: "easeOut" as const },
   },
-}
+};
 
 const TeacherSection = () => {
-  const [selectedTeacherId, setSelectedTeacherId] = useState<number | null>(null)
-    const { i18n } = useTranslation()
-    const lang = i18n.language;
-  const { data: teachersData, isLoading, error } = useGetTeacherQuery({ limit: 10, offset: 0, lang })
+  const [selectedTeacherId, setSelectedTeacherId] = useState<number | null>(null);
+  const { i18n, t } = useTranslation();
+  const lang = i18n.language;
+  const { data: teachersData, isLoading, error } = useGetTeacherQuery({ limit: 10, offset: 0, lang });
+
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const currentOffset = useRef(0);
+  const animationRef = useRef<number>(null);
+  const fullSetWidthRef = useRef(0);
+  const speed = 0.3; 
+  const cardsPerView = 2; 
+  const cardWidth = 200; 
 
   useEffect(() => {
     if (teachersData?.results && teachersData.results.length > 0) {
-      setSelectedTeacherId(teachersData.results[0].id)
+      setSelectedTeacherId(teachersData.results[0].id);
     }
-  }, [teachersData])
+  }, [teachersData]);
 
-  const selectedTeacher = teachersData?.results.find((teacher) => teacher.id === selectedTeacherId)
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
-  const {t} = useTranslation()
-  const [emblaRef] = useEmblaCarousel({ align: "start", dragFree: true })
+  // Full set kengligini hisoblash
+  useEffect(() => {
+    if (innerRef.current && teachersData?.results.length) {
+      // Duplikat soniga qarab (3 ta bo'lgani uchun /3)
+      fullSetWidthRef.current = innerRef.current.scrollWidth / 3;
+    }
+  }, [teachersData]);
 
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error...</p>
+  // Animatsiya
+  useEffect(() => {
+    if (!teachersData?.results.length || !fullSetWidthRef.current) return;
+
+    const animate = () => {
+      if (!isPaused && innerRef.current) {
+        currentOffset.current -= speed;
+        let offset = currentOffset.current;
+
+        // Seamless sikl
+        if (offset <= -fullSetWidthRef.current) {
+          offset += fullSetWidthRef.current;
+        }
+
+        innerRef.current.style.transform = `translateX(${offset}px)`;
+        currentOffset.current = offset;
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [teachersData?.results.length, isPaused]);
+
+  // Pause/resume event listeners
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const handlePause = () => setIsPaused(true);
+    const handleResume = () => setIsPaused(false);
+
+    container.addEventListener("touchstart", handlePause, { passive: true });
+    container.addEventListener("mousedown", handlePause, { passive: true });
+    container.addEventListener("touchend", handleResume, { passive: true });
+    container.addEventListener("mouseup", handleResume);
+    container.addEventListener("mouseleave", handleResume);
+
+    return () => {
+      container.removeEventListener("touchstart", handlePause);
+      container.removeEventListener("mousedown", handlePause);
+      container.removeEventListener("touchend", handleResume);
+      container.removeEventListener("mouseup", handleResume);
+      container.removeEventListener("mouseleave", handleResume);
+    };
+  }, []);
+
+  const selectedTeacher = teachersData?.results.find((teacher) => teacher.id === selectedTeacherId);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   const togglePlay = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) return;
     if (isPlaying) {
-      videoRef.current.pause()
+      videoRef.current.pause();
     } else {
-      videoRef.current.play()
+      videoRef.current.play();
     }
-    setIsPlaying(!isPlaying)
-  }
+    setIsPlaying(!isPlaying);
+  };
 
   const toggleMute = () => {
-    if (!videoRef.current) return
-    videoRef.current.muted = !isMuted
-    setIsMuted(!isMuted)
-  }
+    if (!videoRef.current) return;
+    videoRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error...</p>;
+
+  // Duplikat qilingan teacherlar ro'yxati seamless sikl uchun
+  const duplicatedTeachers = teachersData?.results
+    ? [...teachersData.results, ...teachersData.results, ...teachersData.results]
+    : [];
+
+  // Container kengligini cheklash (2 ta karta + gap)
+  const containerStyle = {
+    width: `100%`,
+    maxWidth: `100%`,
+    overflow: "hidden",
+  };
 
   return (
     <motion.div
@@ -65,11 +143,11 @@ const TeacherSection = () => {
       viewport={{ once: true, amount: 0.2 }}
       className="sm:mt-4 w-full mx-auto lg:mt-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10"
     >
-      <div className="flex flex-col justify-center items-center ">
+      <div className="flex flex-col justify-center items-center">
         <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] font-bold text-white text-center lg:text-left">
           {t("teacherpage.title")}
         </h2>
-        <p className="text-[14px] sm:text-[16px]  md:text-[18px] lg:text-[20px] text-gray-300 text-center lg:text-left  leading-relaxed mt-2 sm:mt-3 lg:mt-4 mb-6 lg:mb-4">
+        <p className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] text-gray-300 text-center lg:text-left leading-relaxed mt-2 sm:mt-3 lg:mt-4 mb-6 lg:mb-4">
           {t("teacherpage.descr")}
         </p>
       </div>
@@ -78,14 +156,16 @@ const TeacherSection = () => {
         {/* Teachers List - Left (desktop), Carousel (mobile) */}
         <div className="w-full lg:w-[330px] rounded-xl">
           {/* 📱 Mobile Carousel */}
-          <div className="lg:hidden" ref={emblaRef}>
-            <div className="flex gap-4">
-              {teachersData?.results.slice(1).map((teacher) => (
+          <div className="lg:hidden" ref={carouselRef} style={containerStyle}>
+            <div
+              ref={innerRef}
+              className="flex gap-4 will-change-transform"
+              style={{ transform: "translateX(0px)" }}
+            >
+              {duplicatedTeachers.map((teacher, index) => (
                 <div
-                  key={teacher.id}
-                  className={`min-w-[200px] flex-shrink-0 flex flex-col items-center bg-[#1A2F3F] p-4 rounded-lg cursor-pointer transition-all duration-200 ${
-                    selectedTeacherId === teacher.id ? "ring-2 ring-green-400" : ""
-                  }`}
+                  key={`${teacher.id}-${index}`}
+                  className="min-w-[calc(50%-0.5rem)] flex-shrink-0 flex flex-col items-center bg-[#1A2F3F] p-4 rounded-lg cursor-pointer transition-all duration-200"
                   onClick={() => setSelectedTeacherId(teacher.id)}
                 >
                   <Image
@@ -155,7 +235,7 @@ const TeacherSection = () => {
                       ref={videoRef}
                       loop
                       muted={isMuted}
-                      className="w-[500px] h-[526px] rounded-lg shadow-lg object-cover"
+                      className="w-full h-[526px] rounded-lg shadow-lg object-cover"
                       src={selectedTeacher.video}
                     />
 
@@ -234,7 +314,7 @@ const TeacherSection = () => {
         </div>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default TeacherSection
+export default TeacherSection;
