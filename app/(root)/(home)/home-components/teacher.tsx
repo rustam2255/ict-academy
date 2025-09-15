@@ -104,34 +104,63 @@ const TeacherSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  // Video yuklanganda initial holatni sozlash
+  // Video yuklanganda va holat o'zgarganda initial holatni sozlash
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = isMuted;
-      if (isPlaying) {
-        videoRef.current.play().catch((err) => {
-          console.error("Video play failed:", err);
-          setIsPlaying(false);
-        });
-      } else {
-        videoRef.current.pause();
-      }
+    if (!videoRef.current || !selectedTeacher?.video) return;
+
+    const video = videoRef.current;
+    const videoSrc = selectedTeacher.video;
+
+    // Manba o'zgarganda yuklash
+    if (video.src !== videoSrc) {
+      video.src = videoSrc;
+      video.load(); // Yangi manbani yuklash
     }
+
+    // Muted holatini yangilash
+    video.muted = isMuted;
+
+    // O'ynash holatini boshqarish
+    if (isPlaying) {
+      video.play().catch((err) => {
+        console.error("Video play failed:", err);
+        setIsPlaying(false);
+      });
+    } else {
+      video.pause();
+    }
+
+    // Xatolarni boshqarish uchun hodisa qo'shish
+    const handleError = (e: Event) => {
+      console.error("Video error:", e);
+      setIsPlaying(false);
+    };
+
+    video.addEventListener("error", handleError);
+    video.addEventListener("loadeddata", () => {
+      console.log("Video loaded successfully");
+    });
+
+    return () => {
+      video.removeEventListener("error", handleError);
+    };
   }, [selectedTeacher?.video, isMuted, isPlaying]);
 
   const togglePlay = async () => {
-    if (!videoRef.current) return;
+    if (!videoRef.current || !selectedTeacher?.video) return;
+    
     try {
+      const video = videoRef.current;
       if (isPlaying) {
-        videoRef.current.pause();
+        video.pause();
       } else {
-        await videoRef.current.play();
+        // Mobil uchun muted va playsInline ta'minlangan
+        await video.play();
       }
       setIsPlaying(!isPlaying);
     } catch (err) {
       console.error("Video play/pause failed:", err);
-      // Mobil da user gesture talab qilinsa, holatni qayta tiklash
-      setIsPlaying(false);
+      setIsPlaying(false); // Xato bo'lsa, rasm holatiga qaytish
     }
   };
 
@@ -257,14 +286,23 @@ const TeacherSection = () => {
                       ref={videoRef}
                       loop
                       muted={isMuted}
+                      playsInline // Mobil uchun muhim: to'liq ekran bo'lmasligi
+                      preload="auto" // Oldindan yuklash
                       className="w-full h-[526px] rounded-lg shadow-lg object-cover pointer-events-none"
-                      src={selectedTeacher.video}
-                      onLoadedMetadata={() => {
+                      onLoadedData={() => {
+                        console.log("Video yuklandi");
                         if (videoRef.current) {
                           videoRef.current.muted = isMuted;
                         }
                       }}
-                    />
+                      onError={(e) => {
+                        console.error("Video yuklanmadi:", e);
+                      }}
+                    >
+                      {/* Source tegi mobil mosligi uchun */}
+                      <source src={selectedTeacher.video} type="video/mp4" />
+                      Video yuklanmadi. Brauzeringizni yangilang.
+                    </video>
 
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/20 pointer-events-auto">
                       <button

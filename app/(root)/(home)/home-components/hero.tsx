@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useGetCoursesBannerQuery } from "@/service/api";
 import { CourseBanner } from "@/interfaces";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import Loading from "../../_components/loading";
 import Error from "../../_components/error";
@@ -23,7 +23,7 @@ const HeroSection = () => {
   const courses: CourseBanner[] = data?.results || [];
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  
+  const [isMuted, setIsMuted] = useState(true); // Dastlab video ovozsiz
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // Birinchi kursni tanlash
@@ -33,22 +33,31 @@ const HeroSection = () => {
     }
   }, [courses]);
 
-  // Video o'ynashini boshqarish
+  // Video o‘ynashini va muted holatini boshqarish
   useEffect(() => {
     if (!videoRef.current || !selectedCourse) return;
 
     const video = videoRef.current;
-    video.src = courses.find((c) => c.id === selectedCourse)?.video || "";
+    const selectedVideo = courses.find((c) => c.id === selectedCourse)?.video || "";
+
+    // Video manbasini o‘zgartirish
+    if (video.src !== selectedVideo) {
+      video.src = selectedVideo;
+      video.load(); // Yangi manbani yuklash
+    }
+
+    // Muted holatini yangilash
+    video.muted = isMuted;
 
     if (isPlaying) {
       video.play().catch((err) => {
         console.error("Video play failed:", err);
-        setIsPlaying(false);
+        setIsPlaying(false); // Xato yuz bersa, isPlaying ni o‘chirish
       });
     } else {
       video.pause();
     }
-  }, [isPlaying, selectedCourse, courses]);
+  }, [isPlaying, isMuted, selectedCourse, courses]);
 
   if (isLoading) return <Loading />;
   if (error) return <Error />;
@@ -57,7 +66,9 @@ const HeroSection = () => {
     setIsPlaying(!isPlaying);
   };
 
-
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
 
   const activeCourse = courses.find((c) => c.id === selectedCourse) || null;
 
@@ -81,10 +92,14 @@ const HeroSection = () => {
           <video
             ref={videoRef}
             loop
-            
+            muted={isMuted} // Dinamik muted holati
             playsInline
             className="w-full h-full object-fill rounded-[23px]"
             onEnded={() => setIsPlaying(false)}
+            onError={(e) => {
+              console.error("Video error:", e);
+              setIsPlaying(false); // Xato yuz bersa, rasmga qaytish
+            }}
           />
         )}
       </div>
@@ -150,6 +165,22 @@ const HeroSection = () => {
           className="absolute rounded-full flex text-center items-center justify-center top-[40%] left-1/2 -translate-x-1/2 bg-[#D9D9D9] w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] cursor-pointer opacity-0 group-hover:opacity-100 transition"
         >
           <Pause className="w-[35px] h-[35px] sm:w-[50px] sm:h-[50px] lg:w-[60px] lg:h-[60px] text-black" />
+        </motion.div>
+      )}
+
+      {/* Ovoz tugmasi (o‘ng yuqori burchakda) */}
+      {isPlaying && (
+        <motion.div
+          onClick={toggleMute}
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 150 }}
+          className="absolute rounded-full flex text-center items-center justify-center top-[10px] right-[10px] bg-[#D9D9D9] w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] lg:w-[60px] lg:h-[60px] cursor-pointer opacity-[90%] group-hover:opacity-100 transition"
+        >
+          {isMuted ? (
+            <VolumeX className="w-[20px] h-[20px] sm:w-[25px] sm:h-[25px] lg:w-[30px] lg:h-[30px] text-black" />
+          ) : (
+            <Volume2 className="w-[20px] h-[20px] sm:w-[25px] sm:h-[25px] lg:w-[30px] lg:h-[30px] text-black" />
+          )}
         </motion.div>
       )}
 
