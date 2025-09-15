@@ -108,7 +108,7 @@ const CorsePage = () => {
             className="flex flex-col items-center justify-center gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-10 lg:mb-12"
             variants={itemVariants}
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent mb-6">
+            <h2 className="text-xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent ">
               {t("coursepage.title")}
             </h2>
             <p className="text-slate-300 text-lg md:text-xl mx-auto leading-relaxed text-center">

@@ -104,20 +104,42 @@ const TeacherSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
+  // Video yuklanganda initial holatni sozlash
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+      if (isPlaying) {
+        videoRef.current.play().catch((err) => {
+          console.error("Video play failed:", err);
+          setIsPlaying(false);
+        });
+      } else {
+        videoRef.current.pause();
+      }
     }
-    setIsPlaying(!isPlaying);
+  }, [selectedTeacher?.video, isMuted, isPlaying]);
+
+  const togglePlay = async () => {
+    if (!videoRef.current) return;
+    try {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        await videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    } catch (err) {
+      console.error("Video play/pause failed:", err);
+      // Mobil da user gesture talab qilinsa, holatni qayta tiklash
+      setIsPlaying(false);
+    }
   };
 
   const toggleMute = () => {
     if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+    const newMuted = !isMuted;
+    videoRef.current.muted = newMuted;
+    setIsMuted(newMuted);
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -235,14 +257,19 @@ const TeacherSection = () => {
                       ref={videoRef}
                       loop
                       muted={isMuted}
-                      className="w-full h-[526px] rounded-lg shadow-lg object-cover"
+                      className="w-full h-[526px] rounded-lg shadow-lg object-cover pointer-events-none"
                       src={selectedTeacher.video}
+                      onLoadedMetadata={() => {
+                        if (videoRef.current) {
+                          videoRef.current.muted = isMuted;
+                        }
+                      }}
                     />
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/20">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/20 pointer-events-auto">
                       <button
                         onClick={togglePlay}
-                        className="p-5 rounded-full bg-[#D9D9D9] transition"
+                        className="p-5 rounded-full bg-[#D9D9D9] transition z-20"
                       >
                         {isPlaying ? (
                           <Pause size={40} stroke="white" fill="white" />
@@ -253,7 +280,7 @@ const TeacherSection = () => {
 
                       <button
                         onClick={toggleMute}
-                        className="bg-black/60 p-2 rounded-full hover:bg-black/80 transition absolute bottom-4 right-4"
+                        className="bg-black/60 p-2 rounded-full hover:bg-black/80 transition absolute bottom-4 right-4 z-20"
                       >
                         {isMuted ? (
                           <VolumeX size={24} className="text-white" />

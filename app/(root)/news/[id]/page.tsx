@@ -49,7 +49,7 @@ const NewsDetail = () => {
             alt={newsDetail?.name || 'News image'}
             width={800}
             height={450}
-            className="w-full h-[450px] "
+            className="w-full xl:h-[450px]  h-[300px] "
           />
         </motion.div>
 
