@@ -61,7 +61,7 @@ const HeroSection = () => {
   }, [isPlaying, isMuted, selectedCourse, courses]);
 
   if (isLoading) return <Loading />;
- 
+
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
@@ -81,27 +81,29 @@ const HeroSection = () => {
       className="relative group w-full mx-auto shadow-[7px_4px_4px_0px_rgba(0,0,0,0.25)] h-[45vh] md:h-[65vh] lg:h-[75vh] rounded-[23px] overflow-hidden"
     >
       {/* Video yoki image */}
-      <div className="absolute inset-0 mx-auto aspect-video bg-black">
+      <div className="absolute inset-0 mx-auto  bg-black">
         {!isPlaying ? (
           <Image
             src={activeCourse?.banner || "/images/hero.jpg"}
             alt={activeCourse?.name || "hero"}
             fill
-            className="rounded-[23px]"
+            className="rounded-[23px] "
           />
         ) : (
-          <video
-            ref={videoRef}
-            loop
-            muted={isMuted} // Dinamik muted holati
-            playsInline
-            className="w-full h-full  rounded-[23px]"
-            onEnded={() => setIsPlaying(false)}
-            onError={(e) => {
-              console.error("Video error:", e);
-              setIsPlaying(false); // Xato yuz bersa, rasmga qaytish
-            }}
-          />
+          <div className="w-full h-full aspect-video">
+            <video
+              ref={videoRef}
+              loop
+              muted={isMuted} // Dinamik muted holati
+              playsInline
+              className="w-full h-full object-cover rounded-[23px]"
+              onEnded={() => setIsPlaying(false)}
+              onError={(e) => {
+                console.error("Video error:", e);
+                setIsPlaying(false); // Xato yuz bersa, rasmga qaytish
+              }}
+            />
+          </div>
         )}
       </div>
 
@@ -111,7 +113,7 @@ const HeroSection = () => {
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="w-full max-w-[350px] hidden xl:flex justify-center items-center flex-col sm:max-w-[450px] md:max-w-[630px] rounded-[23px] rounded-tr-[150px] md:rounded-tr-[250px] shadow-[32px_4px_4px_0px_rgba(0,0,0,0.25)] h-[50vh] md:h-[70vh] lg:h-[80vh] absolute top-0 left-0 bg-gradient-to-b from-[#1d573b]/75 to-[#0D2537]/75"
+          className="w-full max-w-[350px] hidden xl:flex justify-center items-center flex-col sm:max-w-[450px] md:max-w-[630px] rounded-[23px] rounded-tr-[150px] md:rounded-tr-[250px] shadow-[32px_4px_4px_0px_rgba(0,0,0,0.25)]  md:h-[70vh] lg:h-[80vh] absolute top-0 left-0 bg-gradient-to-b from-[#1d573b]/75 to-[#0D2537]/75"
         >
           <motion.h3
             initial={{ y: 20, opacity: 0 }}
@@ -208,11 +210,10 @@ const HeroSection = () => {
               alt={course.name}
               width={45}
               height={45}
-              className={`rounded-full border-2 w-[45px] h-[45px] sm:w-[55px] sm:h-[55px] lg:w-[60px] lg:h-[60px] border-white cursor-pointer transition ${
-                selectedCourse === course.id
+              className={`rounded-full border-2 w-[45px] h-[45px] sm:w-[55px] sm:h-[55px] lg:w-[60px] lg:h-[60px] border-white cursor-pointer transition ${selectedCourse === course.id
                   ? "ring-2 sm:ring-3 lg:ring-4 ring-green-400"
                   : ""
-              }`}
+                }`}
             />
           </motion.div>
         ))}
