@@ -78,7 +78,7 @@ const HeroSection = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
-      className="relative group w-full mx-auto shadow-[7px_4px_4px_0px_rgba(0,0,0,0.25)] h-[50vh] md:h-[70vh] lg:h-[80vh] rounded-[23px] overflow-hidden"
+      className="relative group w-full mx-auto shadow-[7px_4px_4px_0px_rgba(0,0,0,0.25)] h-[40vh] md:h-[60vh] lg:h-[70vh] rounded-[23px] overflow-hidden"
     >
       {/* Video yoki image */}
       <div className="absolute inset-0">
