@@ -39,7 +39,7 @@ const HeroSection = () => {
     if (!videoRef.current || !selectedCourse) return;
 
     const video = videoRef.current;
-    const selectedVideo = courses.find((c) => c.id === selectedCourse)?.video || "";
+    const selectedVideo = courses.find((c) => c.id === selectedCourse)?.video || "/video/test.MP4";
 
     // Video manbasini o‘zgartirish
     if (video.src !== selectedVideo) {
@@ -61,7 +61,7 @@ const HeroSection = () => {
   }, [isPlaying, isMuted, selectedCourse, courses]);
 
   if (isLoading) return <Loading />;
-  if (error) return <Error />;
+ 
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
@@ -78,16 +78,16 @@ const HeroSection = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
-      className="relative group w-full mx-auto shadow-[7px_4px_4px_0px_rgba(0,0,0,0.25)] h-[40vh] md:h-[60vh] lg:h-[70vh] rounded-[23px] overflow-hidden"
+      className="relative group w-full mx-auto shadow-[7px_4px_4px_0px_rgba(0,0,0,0.25)] h-[45vh] md:h-[65vh] lg:h-[75vh] rounded-[23px] overflow-hidden"
     >
       {/* Video yoki image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 mx-auto aspect-video bg-black">
         {!isPlaying ? (
           <Image
             src={activeCourse?.banner || "/images/hero.jpg"}
             alt={activeCourse?.name || "hero"}
             fill
-            className="rounded-[23px] object-cover"
+            className="rounded-[23px]"
           />
         ) : (
           <video
@@ -95,7 +95,8 @@ const HeroSection = () => {
             loop
             muted={isMuted} // Dinamik muted holati
             playsInline
-            className="w-full h-full object-cover rounded-[23px]"
+            src={"/video/test.MP4"}
+            className="w-full h-full  rounded-[23px]"
             onEnded={() => setIsPlaying(false)}
             onError={(e) => {
               console.error("Video error:", e);
