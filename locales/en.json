@@ -95,5 +95,10 @@
     "en": "English classes once a week",
     "team": "Our team",
     "team_info": "Our team consists of experienced instructors who provide individual attention to each student and prepare them to succeed in the IT world."
-  }
+  },
+  "test": {
+  "mes-first": "The site is running in test mode",
+  "mes-second": "New data is being added"
+}
+
 }

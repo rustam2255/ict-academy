@@ -1,14 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const messages = [
-  "Sayt test rejimida ishlamoqda",
-  
-  "Yangi ma'lumotlar qo‘shilmoqda",
-];
+import { useTranslation } from "react-i18next";
 
 const Test = () => {
+  const { t } = useTranslation();
+
+  // i18n fayldan matnlarni olish
+  const messages = [
+    t("test.mes-first"),
+    t("test.mes-second"),
+  ];
+
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -16,10 +19,10 @@ const Test = () => {
       setIndex((prev) => (prev + 1) % messages.length);
     }, 3000); // 3 soniyada yozuv almashadi
     return () => clearInterval(interval);
-  }, []);
+  }, [messages.length]);
 
   return (
-    <div className="bg-green-900  h-12 flex items-center justify-center overflow-hidden relative">
+    <div className="bg-green-900 h-12 flex items-center justify-center overflow-hidden relative">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}

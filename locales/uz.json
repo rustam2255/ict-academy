@@ -95,5 +95,9 @@
       "en": "Haftada bir kun ingliz tili darslari",
       "team": "Bizning jamoa",
       "team_info": "Tajribali instruktorlardan iborat jamoamiz har bir talabaga individual yondashuv ko'rsatadi va ularni IT olamida muvaffaqiyatga erishishga tayyorlaydi."
+   },
+   "test": {
+      "mes-first": "Sayt test rejimida ishlamoqda",
+      "mes-second": "Yangi ma'lumotlar qo‘shilmoqda"
    }
 }
