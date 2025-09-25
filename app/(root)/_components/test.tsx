@@ -22,7 +22,7 @@ const Test = () => {
   }, [messages.length]);
 
   return (
-    <div className="bg-green-900 h-12 flex items-center justify-center overflow-hidden relative">
+    <div className="bg-gradient-to-b from-[#1d573b]/75 to-[#0D2537]/75 h-12 flex items-center justify-center overflow-hidden relative">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}

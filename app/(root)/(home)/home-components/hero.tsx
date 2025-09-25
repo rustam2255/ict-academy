@@ -95,7 +95,6 @@ const HeroSection = () => {
             loop
             muted={isMuted} // Dinamik muted holati
             playsInline
-            src={"/video/test.MP4"}
             className="w-full h-full  rounded-[23px]"
             onEnded={() => setIsPlaying(false)}
             onError={(e) => {
