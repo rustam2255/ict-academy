@@ -1,0 +1,39 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const messages = [
+  "Sayt test rejimida ishlamoqda",
+  
+  "Yangi ma'lumotlar qo‘shilmoqda",
+];
+
+const Test = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 3000); // 3 soniyada yozuv almashadi
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="bg-green-900  h-12 flex items-center justify-center overflow-hidden relative">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ x: "100%", opacity: 0 }}
+          animate={{ x: "0%", opacity: 1 }}
+          exit={{ x: "-100%", opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute text-white text-lg font-medium"
+        >
+          {messages[index]}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default Test;

@@ -3,6 +3,7 @@ import Navbar from "./_components/navbar";
 import Footer from "./_components/footer";
 import { Metadata } from "next";
 import { ChildProps } from "@/types";
+import Test from "./_components/test";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ictacademy.uz'),
@@ -26,6 +27,7 @@ export default function Layout({ children }: ChildProps) {
   return (
     <main>
       <Navbar />
+      <Test />
       <div className="overflow-x-hidden">{children}</div>
       <Footer />
     </main>

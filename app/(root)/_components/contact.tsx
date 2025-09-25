@@ -8,6 +8,7 @@ import { usePostContactMutation } from "@/service/api";
 interface ContactFormInputs {
   name: string;
   email: string;
+  phone: string
   message: string;
 }
 

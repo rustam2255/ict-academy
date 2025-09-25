@@ -68,13 +68,13 @@ export const API = createApi({
     getStudentDetail: builder.query<Students, GetDetailResponse>({
       query: ({ id, lang }) => `/${lang}/accounts/api/v1/our-student/${id}`
     }),
-      postContact: builder.mutation<Contact, Partial<Contact>>({
-        query: (body) => ({
-          url: "/base/api/v1/contact/",
-          method: "POST",
-          body,
-        }),
+    postContact: builder.mutation<Contact, Partial<Contact>>({
+      query: (body) => ({
+        url: "/ru/base/api/v1/contact/",
+        method: "POST",
+        body,
       }),
+    }),
 
   }),
 })
