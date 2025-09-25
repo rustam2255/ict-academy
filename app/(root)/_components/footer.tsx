@@ -42,12 +42,12 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={18} className="text-green-400 flex-shrink-0" />
-                  <p className="text-sm text-gray-200">admin@ictacademy</p>
+                  <p className="text-sm text-gray-200">@ictacademy_official</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-green-400 flex-shrink-0" />
                   <div className="text-sm">
-                    <p className="text-gray-200 mt-1">+998(88) 000-00-00</p>
+                    <p className="text-gray-200 mt-1">998 (88) 333 88 09</p>
                   </div>
                 </div>
               </div>
@@ -66,7 +66,7 @@ const Footer = () => {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-white mb-4">{t("footer.net")}</h3>
               <div className="flex gap-3">
-                <Link href="#" className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center hover:bg-blue-600 transition-colors">
+                <Link href="https://t.me/ictacademy_uz" className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center hover:bg-blue-600 transition-colors">
                   <Twitter size={16} className="text-white" />
                 </Link>
                 <Link href="#" className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center hover:bg-blue-700 transition-colors">
