@@ -45,7 +45,7 @@ const NewsPage = () => {
   const news: News[] = data?.results || [];
 
   if (isLoading) return <Loading />;
-  if (isError) return <Error />;
+
 
   return (
     <>
@@ -66,58 +66,21 @@ const NewsPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* Hero Section */}
-        <motion.div
-          className="w-full relative"
-          initial={{ scale: 1.05, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
-          {news[2] && (
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-            >
-              <Image
-                src={news[2].image}
-                alt="News Hero"
-                width={1440}
-                height={282}
-                className="w-full h-[200px] sm:h-[250px] md:h-[282px] object-cover"
-              />
-            </motion.div>
-          )}
-          {/* Logo */}
-          <motion.div
-            className="absolute top-2 left-4 sm:top-4 sm:left-6 md:left-8 lg:left-10"
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.7 }}
-          >
-            <Image
-              src={"/logolight.png"}
-              alt="logo"
-              width={204}
-              height={204}
-              className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[180px] md:h-[180px] lg:w-[204px] lg:h-[204px]"
-            />
-          </motion.div>
-        </motion.div>
+
 
         {/* Content */}
         <motion.div
-          className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16"
+          className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 lg:py-9"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
           {/* Section Header */}
           <motion.div
-            className="flex flex-col items-center justify-center gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-10 lg:mb-12"
+            className="flex flex-col items-center justify-center   mb-8 sm:mb-10 lg:mb-12"
             variants={itemVariants}
           >
-            <h2 className="text-xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent ">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold  ">
               {t("news.title")}
             </h2>
             <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-center">

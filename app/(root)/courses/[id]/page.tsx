@@ -64,35 +64,7 @@ const CourseDetail = () => {
       </Head>
 
       <div>
-        {/* Hero Banner */}
-        <motion.div
-          className="w-full relative"
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <Image
-            src={data?.banner || ""}
-            alt="Courses Hero"
-            width={1440}
-            height={282}
-            className="w-full h-[120px] xs:h-[150px] sm:h-[180px] md:h-[220px] lg:h-[260px] xl:h-[282px] object-cover"
-          />
-          <motion.div
-            className="absolute top-1 left-2 xs:top-2 xs:left-3 sm:top-3 sm:left-4 md:top-4 md:left-6"
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <Image
-              src={"/logolight.png"}
-              alt="logo"
-              width={120}
-              height={120}
-              className="w-[80px] h-[80px] xs:w-[100px] xs:h-[100px] sm:w-[120px] sm:h-[120px] md:w-[140px] md:h-[140px] lg:w-[170px] lg:h-[170px] xl:w-[204px] xl:h-[204px]"
-            />
-          </motion.div>
-        </motion.div>
+  
 
         {/* Content */}
         <div className="w-[98%] xs:w-[96%] sm:w-[94%] md:w-[92%] lg:w-[90%] xl:w-[88%] mx-auto px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 py-6">

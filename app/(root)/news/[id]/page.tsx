@@ -60,7 +60,7 @@ const NewsDetail = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.7, ease: "easeOut" }}
         >
-          <h1 className="text-3xl lg:text-4xl xl:text-5xl font-black bg-gradient-to-r from-white via-blue-200 to-emerald-300 bg-clip-text text-transparent leading-tight mb-6">
+          <h1 className="text-xl lg:text-2xl xl:text-3xl font-black bg-gradient-to-r from-white via-blue-200 to-emerald-300 bg-clip-text text-transparent leading-tight mb-6">
             {newsDetail?.name}
           </h1>
 

@@ -19,7 +19,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='h-[10vh] sm:h-[12vh] lg:h-[13.5vh] fixed inset-0 z-40 bg-gradient-to-r from-[#3EBD80] to-[#1D573B]'>
+      <div className='h-[10vh] sm:h-[12vh] lg:h-[13.5vh] fixed inset-0 z-40 bg-gradient-to-r from-[#2F8D71] to-[#123D29]
+'>
         <div className='h-full w-full flex items-center justify-between px-4 sm:px-6 lg:px-0 '>
           <Link href={'/'}>
             <div className='w-[140px] sm:w-[170px] lg:w-[200px] h-[50px] sm:h-[65px] lg:h-[80px] rounded-tr-[15px] sm:rounded-tr-[20px] lg:rounded-tr-[23px] rounded-br-[25px] sm:rounded-br-[35px] lg:rounded-br-[45px] pl-[20px] sm:pl-[35px] lg:pl-[50px] bg-white flex items-center'>

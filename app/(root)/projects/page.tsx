@@ -20,7 +20,7 @@ const ProjectsPage = () => {
   const projects: Projects[] = data?.results || []
 
   if (isLoading) return <Loading />
-  if (isError) return <Error />
+
 
   return (
     <>
@@ -34,31 +34,9 @@ const ProjectsPage = () => {
         <meta name="keywords" content="ICT Akademiyasi, IT Projects, Dasturlash, Frontend, Backend" />
       </Head>
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <motion.div
-          className="w-screen relative"
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Image
-            src="/images/hero_courses.png"
-            alt="Courses Hero"
-            width={1440}
-            height={282}
-            className="w-screen h-[282px] object-cover"
-          />
-          <motion.div
-            className="absolute top-1 left-15"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            <Image src={'/logolight.png'} alt="logo" width={204} height={204} />
-          </motion.div>
-        </motion.div>
+    
 
-        <div className="w-[90%] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+        <div className="w-[90%] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-3 lg:py-9">
           {/* Header Section */}
           <motion.div
             className="relative mb-16 text-center"
@@ -66,7 +44,7 @@ const ProjectsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent ">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold  ">
               {t("project.title")}
             </h1>
 
