@@ -13,6 +13,16 @@ const nextConfig = {
         hostname: 'ictacademy.uz',
         pathname: '/media/**',
       },
+        {
+        protocol: 'http',
+        hostname: 'ictacademy.uz',
+        pathname: '/backend/media/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ictacademy.uz',
+        pathname: '/backend/media/**',
+      },
     ],
   }
 }
