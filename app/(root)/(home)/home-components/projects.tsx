@@ -48,7 +48,7 @@ const ProjectsSection = () => {
                 alt={project.name}
                 width={350}
                 height={200}
-                className="w-full h-48 object-cover rounded-[12px] cursor-pointer"
+                className="w-full h-48  rounded-[12px] cursor-pointer"
               />
             </Link>
           </motion.div>

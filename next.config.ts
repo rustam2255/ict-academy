@@ -4,13 +4,18 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'http',
+        hostname: 'ictacademy.uz',
+        pathname: '/media/**',
+      },
+      {
         protocol: 'https',
         hostname: 'ictacademy.uz',
-        pathname: '/backend/media/**',
+        pathname: '/media/**',
       },
     ],
   }
-
 }
+
 
 module.exports = nextConfig

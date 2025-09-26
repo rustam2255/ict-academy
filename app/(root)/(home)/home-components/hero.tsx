@@ -87,7 +87,7 @@ const HeroSection = () => {
             src={activeCourse?.banner || "/images/hero.jpg"}
             alt={activeCourse?.name || "hero"}
             fill
-            className="rounded-[23px] "
+            className="rounded-[23px] object-cover "
           />
         ) : (
           <div className="w-full h-full aspect-video">
