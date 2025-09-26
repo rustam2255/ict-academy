@@ -10,6 +10,9 @@ import Loading from '../_components/loading'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import Head from 'next/head'
+import CourseBackground from '../_components/animate-corse'
+import ConnectedShapesBackground from '../_components/jm'
+import ConnectedPolygonsBackground from '../_components/jm'
 
 const ProjectsPage = () => {
   const { i18n, t } = useTranslation();
@@ -33,6 +36,8 @@ const ProjectsPage = () => {
         <meta property="og:image" content="/images/hero_courses.png" />
         <meta name="keywords" content="ICT Akademiyasi, IT Projects, Dasturlash, Frontend, Backend" />
       </Head>
+      <ConnectedPolygonsBackground />
+    
       <div className="min-h-screen">
     
 

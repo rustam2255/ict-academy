@@ -11,11 +11,13 @@ import PartnersSlider from './home-components/partner'
 import ContactSection from './home-components/contact'
 import NewsSection from './home-components/news'
 import { useTranslation } from 'react-i18next'
+import AnimatedBackground from '../_components/animate'
 
 const HomePage = () => {
   const {t} = useTranslation()
   return (
     <div className='max-w-[90%]   mx-auto mt-5 '>
+      <AnimatedBackground />
       <HeroSection />
       <Testimionals />
       <SectionTitle title={t("hero.news")} />

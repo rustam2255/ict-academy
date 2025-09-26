@@ -11,6 +11,8 @@ import Error from "../_components/error";
 import { useTranslation } from "react-i18next";
 import Head from "next/head";
 import { motion, Transition } from "framer-motion";
+import BackgroundShapes from "../_components/bg";
+
 
 const cubicBezier: Transition["ease"] = [0.25, 0.1, 0.25, 1];
 
@@ -45,7 +47,7 @@ const NewsPage = () => {
   const news: News[] = data?.results || [];
 
   if (isLoading) return <Loading />;
-
+  
 
   return (
     <>
@@ -61,26 +63,27 @@ const NewsPage = () => {
       </Head>
 
       <motion.div
-        className="overflow-x-hidden"
+        className="relative overflow-x-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-
+        {/* Orqa fon shakllar */}
+        <BackgroundShapes />
 
         {/* Content */}
         <motion.div
-          className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 lg:py-9"
+          className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 lg:py-9 relative z-10"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
           {/* Section Header */}
           <motion.div
-            className="flex flex-col items-center justify-center   mb-8 sm:mb-10 lg:mb-12"
+            className="flex flex-col items-center justify-center mb-8 sm:mb-10 lg:mb-12"
             variants={itemVariants}
           >
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold  ">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">
               {t("news.title")}
             </h2>
             <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-center">

@@ -10,6 +10,7 @@ import { motion, Transition } from 'framer-motion'
 
 import { useTranslation } from 'react-i18next'
 import Head from 'next/head'
+import CourseBackground from '../_components/animate-corse'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -61,6 +62,7 @@ const CorsePage = () => {
         <meta property="og:image" content="/images/hero_courses.png" />
         <meta name="keywords" content="ICT Akademiyasi, IT kurslar, dasturlash, Frontend, Backend" />
       </Head>
+      <CourseBackground />
       <motion.div
         className="overflow-x-hidden"
         initial={{ opacity: 0 }}

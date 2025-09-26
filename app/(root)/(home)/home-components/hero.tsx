@@ -87,7 +87,7 @@ const HeroSection = () => {
             src={activeCourse?.banner || "/images/hero.jpg"}
             alt={activeCourse?.name || "hero"}
             fill
-            className="rounded-[23px] object-cover "
+            className="rounded-[23px] object-cover  "
           />
         ) : (
           <div className="w-full h-full aspect-video">
@@ -137,7 +137,7 @@ const HeroSection = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex mt-9 items-center justify-center gap-2"
+            className="flex mt-20 justify-start   gap-2"
           >
             <button className="px-[10px] py-[5px] sm:px-[14px] sm:py-[6px] lg:px-[30px] lg:py-[8px] bg-[#0B2234] rounded-[15px] sm:rounded-[20px] lg:rounded-[45px] border-2 border-green-400 cursor-pointer hover:scale-105 transition">
               <Link href={"/contact"}>

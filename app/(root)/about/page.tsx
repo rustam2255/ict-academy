@@ -384,7 +384,7 @@ export default function AboutUs() {
               /* 12-19. Individual card animations */
               <motion.div
                 key={index}
-                className="bg-[#064E3B] p-6 rounded-2xl shadow-xl relative overflow-hidden cursor-pointer"
+                className="bg-[rgba(62,189,128,9)] p-6 rounded-2xl shadow-xl relative overflow-hidden cursor-pointer"
                 variants={itemVariants}
                 whileHover={{
                   scale: 1.05,
@@ -403,7 +403,7 @@ export default function AboutUs() {
                 <motion.h3
                   className="text-lg font-semibold relative z-10"
                   animate={{
-                    color: hoveredCard === index ? "#10B981" : "#ffffff"
+                    color: hoveredCard === index ? "#000" : "#ffffff"
                   }}
                 >
                   {reason}
