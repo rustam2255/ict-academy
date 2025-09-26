@@ -6,7 +6,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'ictacademy.uz',
-        pathname: '/media/**',
+        pathname: '/backend/media/**',
       },
     ],
   }
