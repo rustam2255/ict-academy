@@ -96,7 +96,7 @@ const HeroSection = () => {
               loop
               muted={isMuted} // Dinamik muted holati
               playsInline
-              className="w-full h-full object-cover rounded-[23px]"
+              className="w-full h-full  rounded-[23px]"
               onEnded={() => setIsPlaying(false)}
               onError={(e) => {
                 console.error("Video error:", e);
