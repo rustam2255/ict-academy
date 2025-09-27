@@ -6,6 +6,7 @@ import { useGetNewsQuery } from "@/service/api";
 import { News } from "@/interfaces";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 const NewsSection = () => {
   const { i18n } = useTranslation()
@@ -34,13 +35,17 @@ const NewsSection = () => {
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.3 }}
         >
+          <Link
+            href={`/news/${data.results[0].id}`}>
             <Image
               src={data.results[0].image || "/images/new_first.png"}
               alt={data.results[0].name}
               fill
               className="rounded-lg object-cover"
             />
-         
+          </Link>
+
+
 
         </motion.div>
       )}
@@ -61,12 +66,16 @@ const NewsSection = () => {
             viewport={{ once: false, amount: 0.3 }}
           >
             <div className="relative w-[429px] h-[245px]">
-              <Image
-                src={item.image || "/images/new_second.png"}
-                alt={item.name}
-                fill
-                className="rounded-lg object-cover"
-              />
+              <Link
+                href={`/news/${item.id}`}>
+                <Image
+                  src={item.image || "/images/new_second.png"}
+                  alt={item.name}
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              </Link>
+
             </div>
             <div className="mt-2">
               <p className="text-[14px] text-[#C4C4C4]">
