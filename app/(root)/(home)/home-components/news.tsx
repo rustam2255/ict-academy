@@ -39,7 +39,7 @@ const NewsSection = () => {
             alt={data.results[0].name}
             width={1440}
             height={399}
-            className="rounded-lg object-cover w-full h-auto"
+            className="rounded-lg object-cover  h-[399px] w-[1440px]"
           />
         </motion.div>
       )}
@@ -64,7 +64,7 @@ const NewsSection = () => {
               alt={item.name}
               width={429}
               height={245}
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover w-[429px] h-[245px]"
             />
             <div className="mt-2">
               <p className="text-[14px] text-[#C4C4C4]">
