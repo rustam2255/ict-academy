@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 const NewsSection = () => {
-    const { i18n } = useTranslation()
-    const lang = i18n.language;
+  const { i18n } = useTranslation()
+  const lang = i18n.language;
   const { data, isLoading, isError } = useGetNewsQuery({ limit: 3, offset: 0, lang });
 
   if (isLoading) {
@@ -28,19 +28,20 @@ const NewsSection = () => {
     <div className="w-full flex flex-col gap-5 mt-5 h-full">
       {data.results[0] && (
         <motion.div
-          className="w-full h-full relative"
+          className="relative w-full h-[200px] md:h-[399px]"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          <Image
-            src={data.results[0].image || "/images/new_first.png"}
-            alt={data.results[0].name}
-            width={1440}
-            height={399}
-            className="rounded-lg object-cover  h-[399px] w-[1440px]"
-          />
+            <Image
+              src={data.results[0].image || "/images/new_first.png"}
+              alt={data.results[0].name}
+              fill
+              className="rounded-lg object-cover"
+            />
+         
+
         </motion.div>
       )}
 
@@ -59,13 +60,14 @@ const NewsSection = () => {
             }}
             viewport={{ once: false, amount: 0.3 }}
           >
-            <Image
-              src={item.image || "/images/new_second.png"}
-              alt={item.name}
-              width={429}
-              height={245}
-              className="rounded-lg object-cover w-[429px] h-[245px]"
-            />
+            <div className="relative w-[429px] h-[245px]">
+              <Image
+                src={item.image || "/images/new_second.png"}
+                alt={item.name}
+                fill
+                className="rounded-lg object-cover"
+              />
+            </div>
             <div className="mt-2">
               <p className="text-[14px] text-[#C4C4C4]">
                 {new Date().toLocaleDateString("uz-UZ")}

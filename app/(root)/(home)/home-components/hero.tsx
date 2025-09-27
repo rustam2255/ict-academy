@@ -192,7 +192,7 @@ const HeroSection = () => {
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.8 }}
-        className="absolute rounded-l-full w-[180px] sm:w-[200px] lg:w-[221px] h-[70px] sm:h-[80px] lg:h-[84px] bg-[#D9D9D9] bottom-0 right-0 flex items-center pl-12"
+        className="absolute rounded-l-full w-[180px] sm:w-[200px] lg:w-[221px] h-[70px] sm:h-[80px] lg:h-[84px] bg-[#D9D9D9] bottom-0 right-0 flex items-center pl-5"
       >
         {courses.map((course, index) => (
           <motion.div
@@ -202,7 +202,7 @@ const HeroSection = () => {
               setSelectedCourse(course.id);
               setIsPlaying(false);
             }}
-            className={`relative z-${courses.length - index}`}
+            className={`relative z-${courses.length - index} w-full pl-1`}
             style={{ marginLeft: index === 0 ? 0 : "-50%" }}
           >
             <Image

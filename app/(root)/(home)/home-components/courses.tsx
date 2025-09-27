@@ -45,12 +45,12 @@ export const CourseCard = ({ course }: CourseCardProps) => {
 
         {/* Content */}
         <div className="flex flex-col flex-1">
-          <h3 className="font-semibold text-[14px] sm:text-[16px] lg:text-[18px] text-white mb-2 sm:mb-3">
+          <h3 className="font-semibold text-[14px] sm:text-[16px] lg:text-[18px] text-white mb-1">
             {t("coursepage.moduls")}
           </h3>
 
           {/* Modules */}
-          <div className="space-y-1 sm:space-y-2">
+          <div className="space-y-1 sm:space-y-1">
             {course.moduls?.length > 0 ? (
               course.moduls.map((item, index) => (
                 <div key={index} className="flex items-center">

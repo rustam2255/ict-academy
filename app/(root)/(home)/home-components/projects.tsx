@@ -17,17 +17,13 @@ const fadeUp = {
 }
 
 const ProjectsSection = () => {
-    const { i18n } = useTranslation()
-    const lang = i18n.language;
-  const { data, isLoading, isError } = useGetProjectsQuery({ limit: 10, offset: 0, lang })
+  const { i18n } = useTranslation()
+  const lang = i18n.language
+  const { data, isLoading } = useGetProjectsQuery({ limit: 10, offset: 0, lang })
   const projects: Projects[] = data?.results || []
 
   if (isLoading) {
     return <p className="text-center text-gray-500 mt-10">Loading...</p>
-  }
-
-  if (isError) {
-    return <p className="text-center text-red-500 mt-10">Failed to load projects</p>
   }
 
   return (
@@ -43,13 +39,14 @@ const ProjectsSection = () => {
             viewport={{ once: true, amount: 0.2 }}
           >
             <Link href={project.url} className="contents" target="_blank">
-              <Image
-                src={project.photo}
-                alt={project.name}
-                width={350}
-                height={200}
-                className="w-full h-48  rounded-[12px] cursor-pointer"
-              />
+              <div className="relative w-full h-48">
+                <Image
+                  src={project.photo}
+                  alt={project.name}
+                  fill
+                  className="object-cover rounded-[12px] cursor-pointer"
+                />
+              </div>
             </Link>
           </motion.div>
         ))}
@@ -67,13 +64,14 @@ const ProjectsSection = () => {
               viewport={{ once: true, amount: 0.2 }}
             >
               <Link href={project.url} className="contents" target="_blank">
-                <Image
-                  src={project.photo}
-                  alt={project.name}
-                  width={350}
-                  height={250}
-                  className="w-full h-60 object-cover rounded-[12px] cursor-pointer"
-                />
+                <div className="relative w-full h-60">
+                  <Image
+                    src={project.photo}
+                    alt={project.name}
+                    fill
+                    className="object-cover rounded-[12px] cursor-pointer"
+                  />
+                </div>
               </Link>
             </motion.div>
           ))}
@@ -93,13 +91,14 @@ const ProjectsSection = () => {
               className="col-span-6 row-span-2"
             >
               <Link href={projects[0].url} className="contents" target="_blank">
-                <Image
-                  src={projects[0].photo}
-                  alt={projects[0].name}
-                  width={690}
-                  height={425}
-                  className="w-full h-full rounded-[12px] object-cover cursor-pointer"
-                />
+                <div className="relative w-full h-[425px]">
+                  <Image
+                    src={projects[0].photo}
+                    alt={projects[0].name}
+                    fill
+                    className="object-cover rounded-[12px] cursor-pointer"
+                  />
+                </div>
               </Link>
             </motion.div>
           )}
@@ -115,13 +114,14 @@ const ProjectsSection = () => {
               className="col-span-3 row-span-1"
             >
               <Link href={project.url} className="contents" target="_blank">
-                <Image
-                  src={project.photo}
-                  alt={project.name}
-                  width={292}
-                  height={203}
-                  className="w-full h-full object-cover rounded-[12px] cursor-pointer"
-                />
+                <div className="relative w-full h-[203px]">
+                  <Image
+                    src={project.photo}
+                    alt={project.name}
+                    fill
+                    className="object-cover rounded-[12px] cursor-pointer"
+                  />
+                </div>
               </Link>
             </motion.div>
           ))}
@@ -137,13 +137,14 @@ const ProjectsSection = () => {
               className="col-span-3 row-span-1"
             >
               <Link href={projects[5].url} className="contents" target="_blank">
-                <Image
-                  src={projects[5].photo}
-                  alt={projects[5].name}
-                  width={292}
-                  height={203}
-                  className="w-full h-full object-cover rounded-[12px] cursor-pointer"
-                />
+                <div className="relative w-full h-[203px]">
+                  <Image
+                    src={projects[5].photo}
+                    alt={projects[5].name}
+                    fill
+                    className="object-cover rounded-[12px] cursor-pointer"
+                  />
+                </div>
               </Link>
             </motion.div>
           )}
@@ -156,13 +157,14 @@ const ProjectsSection = () => {
               className="col-span-9 row-span-2"
             >
               <Link href={projects[6].url} className="contents" target="_blank">
-                <Image
-                  src={projects[6].photo}
-                  alt={projects[6].name}
-                  width={1005}
-                  height={425}
-                  className="w-full h-[425px] object-cover rounded-[12px] cursor-pointer"
-                />
+                <div className="relative w-full h-[425px]">
+                  <Image
+                    src={projects[6].photo}
+                    alt={projects[6].name}
+                    fill
+                    className="object-cover rounded-[12px] cursor-pointer"
+                  />
+                </div>
               </Link>
             </motion.div>
           )}
@@ -175,13 +177,14 @@ const ProjectsSection = () => {
               className="col-span-3 row-span-1"
             >
               <Link href={projects[7].url} className="contents" target="_blank">
-                <Image
-                  src={projects[7].photo}
-                  alt={projects[7].name}
-                  width={292}
-                  height={203}
-                  className="w-full h-full object-cover rounded-[12px] cursor-pointer"
-                />
+                <div className="relative w-full h-[203px]">
+                  <Image
+                    src={projects[7].photo || "/images/student.jpg"}
+                    alt={projects[7].name}
+                    fill
+                    className="object-cover rounded-[12px] cursor-pointer"
+                  />
+                </div>
               </Link>
             </motion.div>
           )}
