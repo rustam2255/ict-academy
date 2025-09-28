@@ -55,7 +55,7 @@ const NewsSection = () => {
         {data.results.slice(1, 4).map((item: News, index: number) => (
           <motion.div
             key={item.id}
-            className="flex flex-col"
+            className="flex flex-col flex-1" // har bir item teng tarqaladi
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
@@ -65,27 +65,29 @@ const NewsSection = () => {
             }}
             viewport={{ once: false, amount: 0.3 }}
           >
-            <div className="relative w-[429px] h-[245px]">
-              <Link
-                href={`/news/${item.id}`}>
+            <Link href={`/news/${item.id}`} className="block w-full">
+              <div className="relative w-full aspect-[429/245] rounded-lg overflow-hidden">
                 <Image
                   src={item.image || "/images/new_second.png"}
                   alt={item.name}
                   fill
-                  className="rounded-lg object-cover"
+                  className="object-cover"
                 />
-              </Link>
+              </div>
+            </Link>
 
-            </div>
             <div className="mt-2">
               <p className="text-[14px] text-[#C4C4C4]">
                 {new Date().toLocaleDateString("uz-UZ")}
               </p>
-              <p className="text-[16px] font-bold line-clamp-2">{item.name}</p>
+              <p className="text-[16px] font-bold line-clamp-2">
+                {item.name}
+              </p>
             </div>
           </motion.div>
         ))}
       </div>
+
     </div>
   );
 };
